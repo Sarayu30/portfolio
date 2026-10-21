@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+ <defs><linearGradient id="bg" x2="1" y2="1"><stop stop-color="#252c46"/><stop offset="1" stop-color="#151a2b"/></linearGradient></defs><rect width="960" height="600" fill="url(#bg)"/>
+ <g font-family="Arial,sans-serif"><text x="56" y="77" fill="#a6b9ed" font-size="13" letter-spacing="4">CLCXray / OBJECT DETECTION</text><text x="56" y="135" fill="#f0f3ff" font-size="44">Seeing through the clutter.</text>
+ <text x="56" y="186" fill="#9ba9cd" font-size="15">Baggage X-ray screening · selected model benchmarks</text>
+ <g stroke="#91a4d2" stroke-opacity=".12"><path d="M220 219V455M420 219V455M620 219V455M820 219V455"/></g>
+ <g font-size="17" fill="#d3dcf7"><text x="56" y="255">YOLOv9m</text><text x="56" y="316">YOLOv12</text><text x="56" y="377">YOLOv8s</text><text x="56" y="438">YOLOv5s</text></g>
+ <g><rect x="220" y="229" width="569" height="35" rx="5" fill="#c2f58a"/><rect x="220" y="290" width="562" height="35" rx="5" fill="#a4b8e5"/><rect x="220" y="351" width="554" height="35" rx="5" fill="#8399ce"/><rect x="220" y="412" width="551" height="35" rx="5" fill="#687fb5"/></g>
+ <g font-size="17" fill="#e1e7f7"><text x="810" y="254">0.711</text><text x="803" y="315">0.703</text><text x="795" y="376">0.692</text><text x="792" y="437">0.689</text></g>
+ <text x="220" y="482" fill="#9aaaca" font-size="13">mAP@50 · higher is better · scale starts at zero</text><text x="56" y="541" fill="#7f8dae" font-size="11" letter-spacing="1.5">REPOSITORY-REPORTED BENCHMARKS · RESEARCH, NOT DEPLOYED PERFORMANCE</text></g>
+</svg>

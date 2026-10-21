@@ -43,9 +43,9 @@ Checks JavaScript syntax, all local asset paths, section links, project complete
 - Supplied résumé: Sarayu_Krishna_Nagasarapu_Resume.pdf.
 - https://github.com/Sarayu30/Ripple/tree/version_2
 - https://github.com/Sarayu30/flexiflow-new
-- https://github.com/Sarayu30/Advanced-Web-Application-Firewall
-- https://github.com/Sarayu30/Code-Companion-AI
+- https://github.com/Sarayu30/troubleshooter
+- https://github.com/Sarayu30/clcxray_object_detection_computervision
 
-Ripple and WAFinity images come from the public project repositories. Ripple's screenshot uses documentation fixtures, labeled in the portfolio. FlexiFlow's illustration is a repository asset, labeled as a preview placeholder. Code Companion's preview is an original conceptual illustration made in HTML/CSS, not a screenshot. Project links are external and service availability is controlled by their respective hosts.
+Ripple's screenshot and FlexiFlow's illustration come from their public project repositories; the illustration is labeled as a preview placeholder. Troubleshooter uses an original SVG architecture illustration. Smart Screening uses an original SVG chart of repository-reported benchmark results. Both support replacement with recordings. Smart Screening concerns baggage-security imagery, as confirmed by the report; a contradictory chest-X-ray sentence in the repository README was not used. Project links are external and service availability is controlled by their respective hosts.
 
 Fonts: Afacad and Bebas Neue, obtained from Google Fonts, distributed under the SIL Open Font License. License texts are in `dist/assets/licenses/`.

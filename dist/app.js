@@ -7,13 +7,13 @@ const finePointer = window.matchMedia('(hover: hover) and (pointer: fine) and (m
 const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const tagHTML = stack => `<div class="tags">${stack.map(tag => `<span>${escapeHTML(tag)}</span>`).join('')}</div>`;
 
-function conceptPreview() {
-  return '<div class="code-preview"><div class="window-dots"><i></i><i></i><i></i></div><strong>⌘ Code Companion AI</strong><p><b>you →</b> A little help with this function?</p><p><b>companion →</b> Let’s work through it together.</p><p class="code-prompt">Python · Ollama · DeepSeek<br><span>your ideas_ your local models_</span></p></div>';
+function conceptPreview(project) {
+  return `<div class="code-preview"><div class="window-dots"><i></i><i></i><i></i></div><strong>${escapeHTML(project.title)}</strong><p>${escapeHTML(project.tagline)}</p><p class="code-prompt">${escapeHTML(project.stack.join(' · '))}</p></div>`;
 }
 
 function mediaHTML(project, controls = false) {
   if (project.video) return `<video class="preview-media ${project.id}" src="${escapeHTML(project.video)}" ${project.poster ? `poster="${escapeHTML(project.poster)}"` : ''} muted playsinline ${controls ? 'controls' : 'loop'} preload="metadata"></video>`;
-  return project.poster ? `<img class="preview-media ${project.id}" src="${escapeHTML(project.poster)}" alt="${escapeHTML(project.title + ' — ' + project.posterLabel)}" loading="lazy">` : conceptPreview();
+  return project.poster ? `<img class="preview-media ${project.id}" src="${escapeHTML(project.poster)}" alt="${escapeHTML(project.title + ' — ' + project.posterLabel)}" loading="lazy">` : conceptPreview(project);
 }
 
 $('#project-list').innerHTML = projects.map(project => `
@@ -93,6 +93,14 @@ function openProject(id) {
   hidePreview();
   setGuideOpen(false);
   $('#project-detail').innerHTML = `<div class="dialog-media">${mediaHTML(project, true)}<span class="preview-label">${escapeHTML(project.video ? 'Project recording' : project.posterLabel)}</span></div><div class="dialog-body"><p class="dialog-eyebrow">${escapeHTML(project.category)} / ${escapeHTML(project.status)}</p><h2 id="dialog-title">${escapeHTML(project.title)}</h2><p class="dialog-tagline">${escapeHTML(project.tagline)}</p>${tagHTML(project.stack)}<h3>The idea</h3><p>${escapeHTML(project.overview)}</p><h3>What I built</h3><p>${escapeHTML(project.contribution)}</p><h3>Inside the project</h3><ul>${project.features.map(feature => `<li>${escapeHTML(feature)}</li>`).join('')}</ul><h3>The engineering focus</h3><p>${escapeHTML(project.engineering)}</p><div class="dialog-links"><a href="${escapeHTML(project.github)}" target="_blank" rel="noopener noreferrer">Explore the code ↗</a>${project.live ? `<a href="${escapeHTML(project.live)}" target="_blank" rel="noopener noreferrer">Visit project ↗</a>` : ''}</div><p class="project-note">${escapeHTML(project.note)}</p></div>`;
+  if (project.report) {
+    const reportLink = document.createElement('a');
+    reportLink.href = project.report;
+    reportLink.textContent = 'Read project report ↗';
+    reportLink.target = '_blank';
+    reportLink.rel = 'noopener noreferrer';
+    $('.dialog-links').append(reportLink);
+  }
   setMediaFallback($('#project-detail'), project);
   dialog.showModal();
   dialog.scrollTop = 0;
@@ -227,7 +235,7 @@ guideToggle.addEventListener('click', () => setGuideOpen(guide.hidden));
 $('#guide-close').addEventListener('click', () => {setGuideOpen(false); guideToggle.focus();});
 function answerQuestion(question) {
   const query = question.toLowerCase();
-  const project = projects.find(item => query.includes(item.id) || query.includes(item.title.toLowerCase()) || (item.id === 'firewall' && /waf|security/.test(query)) || (item.id === 'companion' && /coding|developer tool|code companion/.test(query)));
+  const project = projects.find(item => query.includes(item.id) || query.includes(item.title.toLowerCase()) || (item.id === 'troubleshooter' && /expert|distributed|load.balanc/.test(query)) || (item.id === 'screening' && /x.?ray|yolo|vision|detection|clcxray/.test(query)));
   if (project) return {text:`${project.title}: ${project.overview}\n\nBuilt with ${project.stack.join(', ')}.`, project:project.id, label:`Explore ${project.title} ↗`};
   if (/contact|email|reach|hire|opportunit|connect|talk/.test(query)) return {text:'You can reach Sarayu at sarakrish004@gmail.com, or connect on LinkedIn. She is based in Bengaluru, India.', href:'#contact', label:'Go to contact ↗'};
   if (/experience|deloitte|hashedin|intern|compass|mcp/.test(query)) return {text:'Sarayu was an SDE Intern at HashedIn by Deloitte from April to August 2026. She built Compass, a desktop app consolidating 8+ product-management workflows, and integrated 10+ MCP servers to connect AI assistants with enterprise tools. Her résumé reports a 60% reduction in manual product-management effort.', href:'#experience', label:'Explore the experience ↗'};
@@ -235,7 +243,7 @@ function answerQuestion(question) {
   if (/educat|college|amrita|degree|cgpa|stud/.test(query)) return {text:'Sarayu graduated with a B.Tech in Computer Science and Engineering from Amrita Vishwa Vidyapeetham, Bengaluru (2022–2026), with a CGPA of 8.35/10.', href:'#experience', label:'Education & experience ↗'};
   if (/publication|research|paper|award|hackathon|achievement|kaggle/.test(query)) return {text:'Highlights include Top 10 at Infosys Global Hackathon 2025, first prize at Algomania 2024, and a cybersecurity dataset with 3.9K+ views and 700+ downloads on Kaggle. Her two publications cover multilingual lexical analysis and grid-based parking allocation.', href:'#beyond', label:'Beyond the code ↗'};
   if (/resume|résumé|cv/.test(query)) return {text:'The résumé covers Sarayu’s experience, projects, education, publications, and skills.', href:'assets/Sarayu-Krishna-Resume.pdf', label:'Open résumé ↗'};
-  if (/project|work|build|first|recommend|show/.test(query)) return {text:'Start with Ripple: an audience simulation platform combining independent AI personas, LangGraph workflows, and an interactive audience map. FlexiFlow shows adaptive recommendations, WAFinity explores web security, and Code Companion AI brings local models into a developer tool.', project:'ripple', label:'Explore Ripple ↗'};
+  if (/project|work|build|first|recommend|show/.test(query)) return {text:'Start with Ripple: an audience simulation platform combining independent AI personas, LangGraph workflows, and an interactive audience map. FlexiFlow explores adaptive recommendations, Troubleshooter matches issues to experts across regions, and Smart Screening compares YOLO models for baggage X-ray object detection.', project:'ripple', label:'Explore Ripple ↗'};
   if (/hello|hey|hi\b|about|who|yourself|sarayu/.test(query)) return {text:'Sarayu is a Bengaluru-based software engineer and Computer Science graduate. Her interests sit at the intersection of full-stack products, AI systems, and data-driven problem solving. You can ask me about projects, skills, experience, education, or achievements.', href:'#about', label:'Meet Sarayu ↗'};
   return {text:'I can answer questions about the information in this portfolio: projects, experience, skills, education, publications, and contact details. For anything else, the best person to ask is Sarayu!', href:'#contact', label:'Get in touch ↗'};
 }

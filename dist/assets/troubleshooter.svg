@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="600" viewBox="0 0 960 600">
+ <defs><radialGradient id="bg"><stop stop-color="#254640"/><stop offset="1" stop-color="#112521"/></radialGradient><pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse"><path d="M32 0H0V32" fill="none" stroke="#afd5c7" stroke-opacity=".05"/></pattern></defs>
+ <rect width="960" height="600" fill="url(#bg)"/><rect width="960" height="600" fill="url(#grid)"/>
+ <g font-family="Arial,sans-serif"><text x="56" y="77" fill="#91dcca" font-size="13" letter-spacing="4">ADAPTIVE EXPERT MATCHING</text><text x="56" y="135" fill="#f0f9ed" font-size="44">A problem finds its people.</text>
+ <g fill="none" stroke="#8ed7bf" stroke-width="2" stroke-opacity=".6"><path d="M194 300H365M577 300H730M480 244V202H740V250M480 358V400H740V350"/><path d="M350 293l15 7-15 7M715 293l15 7-15 7"/></g>
+ <rect x="56" y="259" width="140" height="82" rx="12" fill="#1d3b32" stroke="#78b99a"/><text x="126" y="294" text-anchor="middle" fill="#d9f0df" font-size="18">User issue</text><text x="126" y="317" text-anchor="middle" fill="#8cae9c" font-size="12">skills + urgency</text>
+ <rect x="365" y="244" width="212" height="114" rx="16" fill="#abdcb7"/><text x="471" y="279" text-anchor="middle" fill="#19382b" font-size="20">Matching engine</text><text x="471" y="307" text-anchor="middle" fill="#3e634b" font-size="13">semantic + skill similarity</text><text x="471" y="330" text-anchor="middle" fill="#3e634b" font-size="13">trust + availability + load</text>
+ <g fill="#1a352e" stroke="#659a83"><rect x="685" y="180" width="110" height="66" rx="10"/><rect x="805" y="258" width="110" height="66" rx="10"/><rect x="685" y="366" width="110" height="66" rx="10"/><rect x="660" y="266" width="110" height="66" rx="10"/></g>
+ <g fill="#c9e5d4" font-size="15" text-anchor="middle"><text x="740" y="219">North</text><text x="860" y="297">East</text><text x="740" y="405">South</text><text x="715" y="305">West</text></g>
+ <text x="56" y="487" fill="#a4bfaf" font-size="15">Regional matching → cross-region fallback → real-time conversation</text><text x="56" y="541" fill="#6e9a85" font-size="11" letter-spacing="2">ARCHITECTURE ILLUSTRATION · NOT A LIVE SYSTEM VIEW</text></g>
+</svg>
