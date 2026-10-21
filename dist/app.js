@@ -3,7 +3,7 @@ import { projects } from './projects.js';
 const $ = (selector, root = document) => root.querySelector(selector);
 const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-const finePointer = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 621px)');
+const finePointer = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 701px)');
 const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[char]));
 const tagHTML = stack => `<div class="tags">${stack.map(tag => `<span>${escapeHTML(tag)}</span>`).join('')}</div>`;
 
@@ -129,7 +129,7 @@ function setMenuOpen(open) {
   sidebar.classList.toggle('is-open', open);
   backdrop.hidden = !open;
   updateScrollLock();
-  if (window.innerWidth <= 950) sidebar.inert = !open;
+  if (window.innerWidth <= 1023) sidebar.inert = !open;
   if (open) {
     sidebar.setAttribute('role','dialog');
     sidebar.setAttribute('aria-modal','true');
@@ -140,7 +140,7 @@ function setMenuOpen(open) {
   }
 }
 function syncNav() {
-  if (window.innerWidth > 950) {setMenuOpen(false); sidebar.inert = false;}
+  if (window.innerWidth > 1023) {setMenuOpen(false); sidebar.inert = false;}
   else sidebar.inert = !sidebar.classList.contains('is-open');
 }
 syncNav();
@@ -148,7 +148,7 @@ window.addEventListener('resize', syncNav);
 menuToggle.addEventListener('click', () => setMenuOpen(menuToggle.getAttribute('aria-expanded') !== 'true'));
 backdrop.addEventListener('click', () => {setMenuOpen(false); menuToggle.focus();});
 $$('a', sidebar).forEach(link => link.addEventListener('click', () => {
-  if (window.innerWidth <= 950) {
+  if (window.innerWidth <= 1023) {
     setMenuOpen(false);
     const target = link.getAttribute('href');
     if (target?.startsWith('#')) {
@@ -181,15 +181,27 @@ if ('IntersectionObserver' in window && !reducedMotion.matches) {
 let scrollQueued = false;
 function updateScroll() {
   const remaining = document.documentElement.scrollHeight - window.innerHeight;
-  $('.reading-progress').style.width = `${remaining > 0 ? window.scrollY / remaining * 100 : 0}%`;
+  const sidebarWidth = window.innerWidth > 1023 ? sidebar.offsetWidth : 0;
+  $('.reading-progress').style.width = `${remaining > 0 ? window.scrollY / remaining * (window.innerWidth - sidebarWidth) : 0}px`;
   let current = 'home';
   $$('.section').forEach(section => {if (section.getBoundingClientRect().top < window.innerHeight * .38) current = section.id;});
   $$('.nav-item').forEach(link => {
-    const active = link.getAttribute('href') === `#${current}`;
+    const href = link.getAttribute('href');
+    let active = href === `#${current}`;
+    if (current === 'experience' && href.startsWith('#experience-')) {
+      const education = $('#experience-amrita').getBoundingClientRect().top < window.innerHeight * .5;
+      active = href === (education ? '#experience-amrita' : '#experience-hashedin');
+    }
     link.classList.toggle('active', active);
     if (active) link.setAttribute('aria-current','location'); else link.removeAttribute('aria-current');
   });
   $('.project-folder').classList.toggle('active', current === 'projects');
+  const timeline = $('.timeline');
+  if (timeline) {
+    const bounds = timeline.getBoundingClientRect();
+    const progress = bounds.height > 0 ? Math.min(1, Math.max(0, (window.innerHeight * .6 - bounds.top) / bounds.height)) : 0;
+    timeline.style.setProperty('--timeline-progress', `${progress * 100}%`);
+  }
   scrollQueued = false;
 }
 window.addEventListener('scroll', () => {if (!scrollQueued) {scrollQueued = true; requestAnimationFrame(updateScroll);}}, {passive:true});
@@ -202,13 +214,17 @@ $('#year').textContent = new Date().getFullYear();
 
 const phrases = ['Building intelligent software', 'Connecting agents to real tools', 'Turning ideas into products', 'Learning. Building. Repeating.'];
 let phraseIndex = 0;
-let phraseTimer;
 function rotatePhrase() {
   if (reducedMotion.matches || document.hidden) return;
   phraseIndex = (phraseIndex + 1) % phrases.length;
   $('#rotating-text').textContent = phrases[phraseIndex];
 }
-phraseTimer = setInterval(rotatePhrase, 4000);
+setInterval(rotatePhrase, 4000);
+$('#motion-toggle').addEventListener('click', () => {
+  const paused = document.documentElement.classList.toggle('motion-paused');
+  $('#motion-toggle').setAttribute('aria-pressed', String(paused));
+  $('#motion-toggle').textContent = paused ? 'Resume motion' : 'Pause motion';
+});
 
 let toastTimer;
 function toast(message) {
@@ -241,7 +257,9 @@ function answerQuestion(question) {
   if (/experience|deloitte|hashedin|intern|compass|mcp/.test(query)) return {text:'Sarayu was an SDE Intern at HashedIn by Deloitte from April to August 2026. She built Compass, a desktop app consolidating 8+ product-management workflows, and integrated 10+ MCP servers to connect AI assistants with enterprise tools. Her résumé reports a 60% reduction in manual product-management effort.', href:'#experience', label:'Explore the experience ↗'};
   if (/stack|skill|language|tool|technolog/.test(query)) return {text:'Her work brings together Python, Java, SQL, React, TypeScript, FastAPI, Flutter, and Electron. On the AI side: LangGraph, LangChain, machine learning, computer vision, and deep learning. She has also worked with PostgreSQL, ChromaDB, Firebase, and Docker.', href:'#skills', label:'See the toolkit ↗'};
   if (/educat|college|amrita|degree|cgpa|stud/.test(query)) return {text:'Sarayu graduated with a B.Tech in Computer Science and Engineering from Amrita Vishwa Vidyapeetham, Bengaluru (2022–2026), with a CGPA of 8.35/10.', href:'#experience', label:'Education & experience ↗'};
-  if (/publication|research|paper|award|hackathon|achievement|kaggle/.test(query)) return {text:'Highlights include Top 10 at Infosys Global Hackathon 2025, first prize at Algomania 2024, and a cybersecurity dataset with 3.9K+ views and 700+ downloads on Kaggle. Her two publications cover multilingual lexical analysis and grid-based parking allocation.', href:'#beyond', label:'Beyond the code ↗'};
+  if (/ecg|myocardial|cardiac/.test(query)) return {text:'Sarayu co-authored “ECG Analysis for Myocardial Infarction Detection via Deep Learning,” published in Procedia Computer Science in 2026. It explores EfficientNet-B0 with multi-scale attention for ECG image classification and explainability methods including Grad-CAM and Integrated Gradients.', href:'https://doi.org/10.1016/j.procs.2026.06.168', label:'Read the publication ↗'};
+  if (/publication|research|paper|parking|lexical/.test(query)) return {text:'Sarayu has four verified co-authored publications: ECG Analysis for Myocardial Infarction Detection via Deep Learning (2026); Transforming Urban Parking (2025); Efficient Parking Spot Allocation in a Grid-Based Parking Lot (2025); and Implementing a Multilingual Lexical Analyser for Java, C and C++ (2024). Each has a publisher link and a ResearchGate listing in the research section.', href:'#research', label:'Explore all four publications ↗'};
+  if (/award|hackathon|achievement|kaggle/.test(query)) return {text:'Highlights include Top 10 at Infosys Global Hackathon 2025, first prize at Algomania 2024, and a cybersecurity dataset with 3.9K+ views and 700+ downloads on Kaggle.', href:'#beyond', label:'Beyond the code ↗'};
   if (/resume|résumé|cv/.test(query)) return {text:'The résumé covers Sarayu’s experience, projects, education, publications, and skills.', href:'assets/Sarayu-Krishna-Resume.pdf', label:'Open résumé ↗'};
   if (/project|work|build|first|recommend|show/.test(query)) return {text:'Start with Ripple: an audience simulation platform combining independent AI personas, LangGraph workflows, and an interactive audience map. FlexiFlow explores adaptive recommendations, Troubleshooter matches issues to experts across regions, and Smart Screening compares YOLO models for baggage X-ray object detection.', project:'ripple', label:'Explore Ripple ↗'};
   if (/hello|hey|hi\b|about|who|yourself|sarayu/.test(query)) return {text:'Sarayu is a Bengaluru-based software engineer and Computer Science graduate. Her interests sit at the intersection of full-stack products, AI systems, and data-driven problem solving. You can ask me about projects, skills, experience, education, or achievements.', href:'#about', label:'Meet Sarayu ↗'};
@@ -256,6 +274,7 @@ function addGuideMessage(text, user = false, response = null) {
     const link = document.createElement('a');
     link.textContent = response.label;
     link.href = response.project ? `#project-${response.project}` : response.href;
+    if (link.href.startsWith('https://')) {link.target = '_blank'; link.rel = 'noopener noreferrer';}
     link.addEventListener('click', event => {
       if (response.project) {event.preventDefault(); openProject(response.project);}
       else setGuideOpen(false);

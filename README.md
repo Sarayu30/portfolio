@@ -1,6 +1,6 @@
 # Sarayu Krishna — Portfolio
 
-A responsive, buildless portfolio inspired by the reference’s dark grid, explorer navigation, display typography, floating project previews, and project-detail overlays. Personalized with a sage/lime accent, original layout, and verified résumé/GitHub content.
+A responsive, buildless portfolio aligned with the supplied reference: a black file-explorer sidebar with expandable folders, centered introduction, muted grid background, blue-purple accents, scrolling toolkit, floating project previews, and alternating light experience cards around a central progress line. Content is personalized with verified résumé, GitHub, and publication details.
 
 ## Run locally
 
@@ -13,7 +13,7 @@ Open **http://127.0.0.1:4173**. Node 18+ is sufficient. There are no runtime dep
 ## Customize
 
 - `dist/index.html`: personal information, experience, achievements, and contact links.
-- `dist/styles.css`: typography, colors, layout, animation, and responsive styles.
+- `dist/styles.css`: reference-aligned typography, layout, responsive timeline, and motion controls.
 - `dist/projects.js`: the four projects and all case-study content.
 - `dist/app.js`: previews, native dialogs, menu, copy-email action, and local portfolio guide.
 - `dist/assets/Sarayu-Krishna-Resume.pdf`: downloadable résumé, included with explicit permission.
@@ -38,6 +38,8 @@ npm run check
 
 Checks JavaScript syntax, all local asset paths, section links, project completeness, unique IDs, and personalized content. Browser UI verification was unavailable in the creation environment; inspect desktop and mobile layouts and interactions in a browser before public launch.
 
+Additional DOM checks covered project dialogs and focus return, mobile navigation, portfolio-guide answers, safe text rendering, copy-email, and publication links. These checks do not substitute for browser rendering verification. The pixel-art character is an original illustrative mascot, not a portrait.
+
 ## Content sources
 
 - Supplied résumé: Sarayu_Krishna_Nagasarapu_Resume.pdf.
@@ -45,6 +47,14 @@ Checks JavaScript syntax, all local asset paths, section links, project complete
 - https://github.com/Sarayu30/flexiflow-new
 - https://github.com/Sarayu30/troubleshooter
 - https://github.com/Sarayu30/clcxray_object_detection_computervision
+
+Publication metadata was cross-checked using DOI records and publisher pages because the ResearchGate contributions page returned HTTP 403. The four indexed papers are linked individually and grouped under Research:
+
+- ECG Analysis for Myocardial Infarction Detection via Deep Learning (2026): https://doi.org/10.1016/j.procs.2026.06.168
+- Transforming Urban Parking: Intelligent System for a Better City Experience (2025): https://doi.org/10.1007/978-981-96-4139-0_25
+- Efficient Parking Spot Allocation in a Grid-Based Parking Lot (2025): https://doi.org/10.1109/COMP-SIF65618.2025.10969931
+- Implementing a Multilingual Lexical Analyser for Java, C and C++ (2024): https://doi.org/10.1109/GCAT62922.2024.10923959
+- ResearchGate profile: https://www.researchgate.net/scientific-contributions/Nagasarapu-Sarayu-Krishna-2308305356
 
 Ripple's screenshot and FlexiFlow's illustration come from their public project repositories; the illustration is labeled as a preview placeholder. Troubleshooter uses an original SVG architecture illustration. Smart Screening uses an original SVG chart of repository-reported benchmark results. Both support replacement with recordings. Smart Screening concerns baggage-security imagery, as confirmed by the report; a contradictory chest-X-ray sentence in the repository README was not used. Project links are external and service availability is controlled by their respective hosts.
 
