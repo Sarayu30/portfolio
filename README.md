@@ -38,7 +38,7 @@ npm run check
 
 Checks JavaScript syntax, all local asset paths, section links, project completeness, unique IDs, and personalized content. Browser UI verification was unavailable in the creation environment; inspect desktop and mobile layouts and interactions in a browser before public launch.
 
-Additional DOM checks covered project dialogs and focus return, mobile navigation, portfolio-guide answers, safe text rendering, copy-email, and publication links. These checks do not substitute for browser rendering verification. The avatar uses the supplied ?Playful Double-Point Pixel Portrait? image, with face crops in the sidebar and guide header and the full pointing pose on the floating guide.
+Additional DOM checks covered project dialogs and focus return, mobile navigation, portfolio-guide answers, safe text rendering, copy-email, and publication links. These checks do not substitute for browser rendering verification. The avatar uses transparent cutouts of the supplied striped-tee and double-pointing pixel characters. The floating figure switches to the pointing pose on mouse hover or keyboard focus; touch devices keep the normal pose.
 
 ## Content sources
 
@@ -64,4 +64,4 @@ Fonts: Afacad and Bebas Neue, obtained from Google Fonts, distributed under the 
 
 Updates are committed and pushed to https://github.com/Sarayu30/portfolio (the `origin` remote). The hosted private Site is published from the same source commit.
 
-The active avatar asset is `dist/assets/sarayu-avatar.png`; replace it to update all three avatar placements. The supplied original is retained locally and ignored to avoid tracking the same image twice.
+Avatar assets: `dist/assets/avatar-idle.png` (normal, sidebar, guide header) and `dist/assets/avatar-pointing.png` (hover/focus). Both have true transparent backgrounds; the floating figure has no border or backdrop. The supplied originals are retained locally and ignored. See `AVATAR-ASSETS.md` for background-extraction prompts and verification.
