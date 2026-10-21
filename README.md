@@ -38,7 +38,7 @@ npm run check
 
 Checks JavaScript syntax, all local asset paths, section links, project completeness, unique IDs, and personalized content. Browser UI verification was unavailable in the creation environment; inspect desktop and mobile layouts and interactions in a browser before public launch.
 
-Additional DOM checks covered project dialogs and focus return, mobile navigation, portfolio-guide answers, safe text rendering, copy-email, and publication links. These checks do not substitute for browser rendering verification. The pixel-art character is an original illustrative mascot, not a portrait.
+Additional DOM checks covered project dialogs and focus return, mobile navigation, portfolio-guide answers, safe text rendering, copy-email, and publication links. These checks do not substitute for browser rendering verification. The avatar uses the supplied ?Playful Double-Point Pixel Portrait? image, with face crops in the sidebar and guide header and the full pointing pose on the floating guide.
 
 ## Content sources
 
@@ -59,3 +59,9 @@ Publication metadata was cross-checked using DOI records and publisher pages bec
 Ripple's screenshot and FlexiFlow's illustration come from their public project repositories; the illustration is labeled as a preview placeholder. Troubleshooter uses an original SVG architecture illustration. Smart Screening uses an original SVG chart of repository-reported benchmark results. Both support replacement with recordings. Smart Screening concerns baggage-security imagery, as confirmed by the report; a contradictory chest-X-ray sentence in the repository README was not used. Project links are external and service availability is controlled by their respective hosts.
 
 Fonts: Afacad and Bebas Neue, obtained from Google Fonts, distributed under the SIL Open Font License. License texts are in `dist/assets/licenses/`.
+
+## Source repository
+
+Updates are committed and pushed to https://github.com/Sarayu30/portfolio (the `origin` remote). The hosted private Site is published from the same source commit.
+
+The active avatar asset is `dist/assets/sarayu-avatar.png`; replace it to update all three avatar placements. The supplied original is retained locally and ignored to avoid tracking the same image twice.
