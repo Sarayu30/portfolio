@@ -1,0 +1,8 @@
+{
+  "name": "sarayu-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": { "dev": "node server.mjs", "start": "node server.mjs", "check": "node --check dist/app.js && node --check dist/projects.js && node scripts/check.mjs" },
+  "description": "Sarayu Krishna Nagasarapu — personal portfolio. No build step or runtime dependencies."
+}
